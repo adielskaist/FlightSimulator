@@ -1,0 +1,41 @@
+﻿<Window x:Class="FlightSimulator.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlightSimulator"
+        mc:Ignorable="d"
+        Title="Settings" Height="200" Width="280">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Comic sans MS"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="left"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+    </Window.Resources>
+    <Viewbox>
+        <Grid Height="200" Width="280">
+            <TextBlock Margin="20,30,0,0">Flight Server IP:</TextBlock>
+            <TextBlock Margin="20,60,0,0">Flight Info Port:</TextBlock>
+            <TextBlock Margin="20,90,0,0">Flight Command Port:</TextBlock>
+            <TextBox x:Name="CommandPort" Text="{Binding FlightCommandPort}" Margin="0,90,30,0"></TextBox>
+            <TextBox x:Name="InfoPort" Text="{Binding FlightInfoPort}" Margin="0,60,30,0"></TextBox>
+            <TextBox x:Name="IP" Text="{Binding FlightServerIP}" Margin="0,30,30,0"></TextBox>
+            <Button x:Name="OKButton" Content="OK" Margin="0,0,70,30" Command="{Binding OnKlick}"/>
+            <Button x:Name="CancelButton" Content="Cancel" Margin="70,0,0,30" Command="{Binding CancelCommand}"/>
+        </Grid>
+    </Viewbox>
+</Window>
