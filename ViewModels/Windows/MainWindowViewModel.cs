@@ -57,7 +57,7 @@ namespace FlightSimulator.ViewModels.Windows
 
         private void DisconnectCommandKlicked()
         {
-            model.close();
+            model.Disconnect();
         }
         #endregion
         #endregion

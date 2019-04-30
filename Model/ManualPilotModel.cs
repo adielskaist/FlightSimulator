@@ -9,6 +9,7 @@ namespace FlightSimulator.Model
 {
     class ManualPilotModel
     {
+        #region Singleton
         private static ManualPilotModel m_Instance = null;
 
         public static ManualPilotModel Instance
@@ -22,27 +23,28 @@ namespace FlightSimulator.Model
             return m_Instance;
             }
         }
+        #endregion
 
         ITelnetClient client = FlightTelnetClient.Instance;
         
-        public double rudder
+        public double Rudder
         {
-            set { client.write("set /controls/flight/rudder " + value.ToString() + "\r\n"); }
+            set { client.write("set /controls/flight/rudder " + value.ToString() + "\r\n"); }   //sending rudder commands
         }
 
-        public double throttel
+        public double Throttel
         {
-            set { client.write("set /controls/engines/current-engine/throttle " + value.ToString() + "\r\n"); }
+            set { client.write("set /controls/engines/current-engine/throttle " + value.ToString() + "\r\n"); }     //sending throttle commands
         }
 
-        public double aileron
+        public double Aileron
         {
-            set { client.write("set /controls/flight/aileron " + value.ToString() + "\r\n"); }
+            set { client.write("set /controls/flight/aileron " + value.ToString() + "\r\n"); }      //sending aileron commands
         }
         
-        public double elevator
+        public double Elevator
         {
-            set { client.write("set /controls/flight/elevator " + value.ToString() + "\r\n"); }
+            set { client.write("set /controls/flight/elevator " + value.ToString() + "\r\n"); }     //sending elevator commands
         }
     }
 }

@@ -9,6 +9,7 @@ namespace FlightSimulator.Model
 {
     class MainWindowModel
     {
+        #region Singleton
         private static MainWindowModel m_Instance = null;
 
         public static MainWindowModel Instance
@@ -22,28 +23,37 @@ namespace FlightSimulator.Model
                 return m_Instance;
             }
         }
+        #endregion
 
+        /// <summary>
+        /// connecting to the simulator (client and server) and starting to read from the server
+        /// </summary>
         public void Connect()
         {
             ISettingsModel settings = ApplicationSettingsModel.Instance;
             ITelnetServer server = DataReaderServer.Instance;
             ITelnetClient client = FlightTelnetClient.Instance;
-            server.connect(settings.FlightServerIP,settings.FlightInfoPort);
+            server.Connect(settings.FlightServerIP,settings.FlightInfoPort);
             client.connect(settings.FlightServerIP, settings.FlightCommandPort);
-            
             FlightBoardModel.Instance.ReadFromServer();
         }
 
+        /// <summary>
+        /// opening a setting window
+        /// </summary>
         public void OpenSettings()
         {
             Settings settingsWindow = new Settings();
             settingsWindow.Show();
         }
 
-        public void close()
+        /// <summary>
+        /// disconnecting from the simulator
+        /// </summary>
+        public void Disconnect()
         {
-            FlightTelnetClient.Instance.disconnect();
-            DataReaderServer.Instance.disconnect();
+            FlightTelnetClient.Instance.Disconnect();
+            DataReaderServer.Instance.Disconnect();
             FlightBoardModel.Instance.Disconnect();
         }
     }

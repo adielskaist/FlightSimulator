@@ -13,19 +13,19 @@ namespace FlightSimulator.ViewModels
     {
         private ManualPilotModel model = ManualPilotModel.Instance;
         public double Rudder {
-            set { model.rudder = value; }
+            set { model.Rudder = value; }
         }
         public double Throttle
         {
-            set { model.throttel = value; }
+            set { model.Throttel = value; }
         }
         public double Alieron
         {
-            set { model.aileron = value; }
+            set { model.Aileron = value; }
         }
         public double Elevator
         {
-            set { model.elevator = value; }
+            set { model.Elevator = value; }
         }
     }
 }

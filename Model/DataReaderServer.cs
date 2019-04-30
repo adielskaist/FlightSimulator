@@ -10,6 +10,7 @@ namespace FlightSimulator.Model
 {
     class DataReaderServer : ITelnetServer
     {
+        #region Singleton
         private static ITelnetServer m_Instance = null;
         public static ITelnetServer Instance
         {
@@ -22,17 +23,25 @@ namespace FlightSimulator.Model
                 return m_Instance;
             }
         }
+        #endregion
 
         TcpClient client;
         NetworkStream stream;
         TcpListener listener;
         StreamReader streamReader;
-
-        public void connect(string ip, int port)
+        
+        /// <summary>
+        /// connecting the client to the simulator client.
+        /// </summary>
+        /// <param name="ip">the IP</param>
+        /// <param name="port">the socket number</param>
+        public void Connect(string ip, int port)
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
             listener = new TcpListener(ep);
             listener.Start();
+
+            //trying to connect to the client.
             new Thread(() => 
                 {
                     try
@@ -44,23 +53,23 @@ namespace FlightSimulator.Model
                             streamReader = new StreamReader(stream);
                             Console.WriteLine("Info port connected.");
                         }
-                    } catch(SocketException e) { Console.WriteLine("disconnected"); }
+                    } catch(SocketException e) { Console.WriteLine("disconnected"); } //in case disconnect button is pressed
                 }).Start();
         }
-
+        /// <summary>
+        /// reading a string from the flight simulator
+        /// </summary>
+        /// <returns>a string</returns>
         public string read()
         {
             string line = streamReader.ReadLine();
             return line;
         }
 
-        public bool IsConnected()
-        {
-            if (client.Connected) { return true; }
-            return false;
-        }
-
-        public void disconnect()
+        /// <summary>
+        /// in case disconnect button is pressed
+        /// </summary>
+        public void Disconnect()
         {
             try
             {

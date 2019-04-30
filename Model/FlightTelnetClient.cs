@@ -14,7 +14,7 @@ namespace FlightSimulator.Model
     {
         TcpClient client;
         NetworkStream stream;
-        
+        #region Singleton
         private static ITelnetClient m_Instance = null;
 
         public static ITelnetClient Instance
@@ -28,6 +28,13 @@ namespace FlightSimulator.Model
                 return m_Instance;
             }
         }
+        #endregion
+
+        /// <summary>
+        /// connecting to the simulator server
+        /// </summary>
+        /// <param name="ip">the IP</param>
+        /// <param name="port">the socket number</param>
         void ITelnetClient.connect(string ip, int port)
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
@@ -36,7 +43,7 @@ namespace FlightSimulator.Model
             {
                 try
                 {
-                    while(!client.Connected){
+                    while(!client.Connected){   // trying to connect until success
                         try
                         {
                             client.Connect(ep);
@@ -52,6 +59,10 @@ namespace FlightSimulator.Model
             }).Start();
         }
 
+        /// <summary>
+        /// sending commands to the simulator
+        /// </summary>
+        /// <param name="command">the command massage</param>
         void ITelnetClient.write(string command)
         {
             byte[] msg = ASCIIEncoding.ASCII.GetBytes(command);
@@ -59,13 +70,11 @@ namespace FlightSimulator.Model
             catch (NullReferenceException e) { }
         }
 
-        public bool IsConnected()
-        {
-            return client.Connected;
-        }
         
-
-        void ITelnetClient.disconnect()
+        /// <summary>
+        /// disconnecting
+        /// </summary>
+        void ITelnetClient.Disconnect()
         {
             client.Close();
         }

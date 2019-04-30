@@ -10,6 +10,6 @@ namespace FlightSimulator.Model
     {
         void connect(string ip, int port);
         void write(string command);
-        void disconnect();
+        void Disconnect();
     }
 }

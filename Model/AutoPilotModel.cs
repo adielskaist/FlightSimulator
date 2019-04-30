@@ -7,8 +7,12 @@ using FlightSimulator.Model.Interface;
 
 namespace FlightSimulator.Model
 {
+    /// <summary>
+    /// The auto pilot model.
+    /// </summary>
     class AutoPilotModel
     {
+        #region Singleton
         private static AutoPilotModel m_Instance = null;
         public static AutoPilotModel Instance
         {
@@ -21,11 +25,16 @@ namespace FlightSimulator.Model
                 return m_Instance;
             }
         }
+        #endregion
 
-        ITelnetClient client = FlightTelnetClient.Instance;
-        public void sendCommands(string value)
+        ITelnetClient client = FlightTelnetClient.Instance; //calling a client instance.
+        /// <summary>
+        /// sending commands to the simulator.
+        /// </summary>
+        /// <param name="msg">the massage sent</param>
+        public void sendCommands(string msg)
         {
-            client.write(value);
+            client.write(msg);
         }
     }
 }
