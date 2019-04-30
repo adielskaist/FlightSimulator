@@ -45,17 +45,17 @@ namespace FlightSimulator.ViewModels.Windows
             model.Connect();
         }
         #endregion
-        #region close command
-        private ICommand _CloseCommand;
-        public ICommand CloseCommand
+        #region disconnect command
+        private ICommand _DisconnectCommand;
+        public ICommand DisconnectCommand
         {
             get
             {
-                return _CloseCommand ?? (_CloseCommand = new CommandHandler(() => CloseKlicked()));
+                return _DisconnectCommand ?? (_DisconnectCommand = new CommandHandler(() => DisconnectCommandKlicked()));
             }
         }
 
-        private void CloseKlicked()
+        private void DisconnectCommandKlicked()
         {
             model.close();
         }

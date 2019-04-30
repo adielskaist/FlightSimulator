@@ -25,7 +25,6 @@ namespace FlightSimulator.Model
 
         TcpClient client;
         NetworkStream stream;
-        BinaryReader reader;
         TcpListener listener;
         StreamReader streamReader;
 
@@ -36,14 +35,16 @@ namespace FlightSimulator.Model
             listener.Start();
             new Thread(() => 
                 {
-                    client = listener.AcceptTcpClient();
-                    if (client.Connected)
+                    try
                     {
-                        stream = client.GetStream();
-                        reader = new BinaryReader(stream);
-                        streamReader = new StreamReader(stream);
-                        Console.WriteLine("Info port connected.");
-                    }
+                        client = listener.AcceptTcpClient();
+                        if (client.Connected)
+                        {
+                            stream = client.GetStream();
+                            streamReader = new StreamReader(stream);
+                            Console.WriteLine("Info port connected.");
+                        }
+                    } catch(SocketException e) { Console.WriteLine("disconnected"); }
                 }).Start();
         }
 
@@ -53,9 +54,18 @@ namespace FlightSimulator.Model
             return line;
         }
 
+        public bool IsConnected()
+        {
+            if (client.Connected) { return true; }
+            return false;
+        }
+
         public void disconnect()
         {
-            client.Close();
+            try
+            {
+                client.Close();
+            } catch(NullReferenceException e) { Console.WriteLine("disconnected"); }
             listener.Stop();
         }
     }

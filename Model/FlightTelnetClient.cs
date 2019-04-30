@@ -34,17 +34,21 @@ namespace FlightSimulator.Model
             client = new TcpClient();
             new Thread(() =>
             {
-                while(!client.Connected){
-                    try
-                    {
-                        client.Connect(ep);
-                    } catch(SocketException e) { }
-                }
-                if (client.Connected)
+                try
                 {
-                    stream = client.GetStream();
-                    Console.WriteLine("Command Port connected.");
+                    while(!client.Connected){
+                        try
+                        {
+                            client.Connect(ep);
+                        } catch(SocketException e) { }
+                    }
+                    if (client.Connected)
+                    {
+                        stream = client.GetStream();
+                        Console.WriteLine("Command Port connected.");
+                    }
                 }
+                catch (NullReferenceException e) { }
             }).Start();
         }
 
@@ -53,6 +57,11 @@ namespace FlightSimulator.Model
             byte[] msg = ASCIIEncoding.ASCII.GetBytes(command);
             try { stream.Write(msg, 0, msg.Length); }
             catch (NullReferenceException e) { }
+        }
+
+        public bool IsConnected()
+        {
+            return client.Connected;
         }
         
 

@@ -44,6 +44,7 @@ namespace FlightSimulator.Model
         {
             FlightTelnetClient.Instance.disconnect();
             DataReaderServer.Instance.disconnect();
+            FlightBoardModel.Instance.Disconnect();
         }
     }
 }

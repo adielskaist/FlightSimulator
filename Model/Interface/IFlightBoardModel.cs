@@ -12,5 +12,7 @@ namespace FlightSimulator.Model.Interface
         void ReadFromServer();
         double Lon { get; set; }
         double Lat { get; set; }
+
+        void Disconnect();
     }
 }

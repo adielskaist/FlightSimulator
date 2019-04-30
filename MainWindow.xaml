@@ -6,6 +6,7 @@
         xmlns:SystemGesture="clr-namespace:System;assembly=mscorlib"
         xmlns:Views="clr-namespace:FlightSimulator.Views" x:Class="FlightSimulator.MainWindow"
         mc:Ignorable="d"
+    
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <SystemGesture:String x:Key="Flight Control">Flight Control</SystemGesture:String>
@@ -40,10 +41,12 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="Settings" Content="Settings" Width="50" Height="20" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,30,0,0" Command="{Binding SettingsCommand}"/>
-        <Button x:Name="Connect" Content="Connect" Width="50" Height="20" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,30,0,0" Command="{Binding ConnectCommand}"/>
-    </Grid>
+        <Button x:Name="Settings" Content="Settings" Width="70" Height="20" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,30,0,0" Command="{Binding SettingsCommand}"/>
+        <Button x:Name="Connect" Content="Connect" Width="70" Height="20" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,30,0,0" Command="{Binding ConnectCommand}"/>
+            <Button x:Name="Disconnect" Content="Disconnect" Width="70" Height="20" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,30,0,0" Command="{Binding DisconnectCommand}"/>
+        </Grid>
     </Viewbox>
 </Window>

@@ -25,6 +25,11 @@ namespace FlightSimulator.Model
             }
         }
         ITelnetServer server = DataReaderServer.Instance;
+        private bool disconnected = false;
+        public void Disconnect()
+        {
+            disconnected = true;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
@@ -35,17 +40,18 @@ namespace FlightSimulator.Model
         {
             new Thread(() =>
             {
-                while (true)
+                disconnected = false;
+                while (!disconnected)
                 {
                     try
                     {
-                        string line = server.read();
-                        Console.WriteLine(line);
-                        string[] info = line.Split(',');
-                        Lon = Double.Parse(info[0]);
-                        Lat = Double.Parse(info[1]);
-                    } catch(NullReferenceException e) { }
-                    Thread.Sleep(100);
+                            string line = server.read();
+                            Console.WriteLine(line);
+                            string[] info = line.Split(',');
+                            Lon = Double.Parse(info[0]);
+                            Lat = Double.Parse(info[1]);
+                        Thread.Sleep(100);
+                    } catch(NullReferenceException e) { Console.WriteLine("not connected yet"); }
                 }
             }).Start();
         }
